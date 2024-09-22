@@ -20,7 +20,7 @@ public class Produto {
     @Id
     @NotBlank(message = "O EAN não pode estar em branco")
     @Size(min = 13, max = 13, message = "O EAN deve conter exatamente 13 dígitos")
-    @Pattern(regexp = "\\d{13}", message = "O EAN deve ser composto apenas por dígitos numéricos")
+    //@Pattern(regexp = "\\d{13}", message = "O EAN deve ser composto apenas por dígitos numéricos")
     private String ean;
 
     @NotBlank(message = "A descrição não pode estar em branco")
