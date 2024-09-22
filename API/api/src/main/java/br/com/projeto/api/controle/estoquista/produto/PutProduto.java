@@ -22,7 +22,7 @@ public class PutProduto {
         // Atualiza o EAN do objeto Produto para o EAN recebido na URL
         objProduto.setEan(ean);
         
-        System.out.println("Atualizando produto com EAN: " + objProduto.getEan());
+        //System.out.println("Atualizando produto com EAN: " + objProduto.getEan());
     
         // Verifica se o produto existe
         if (!produto_repositorio.existsById(ean)) {
@@ -37,7 +37,7 @@ public class PutProduto {
 
     //Caso queira atualizar o EAN. Obs: o produto com EAN anterior será excluido e será criado um novo porque o EAN é chave primariar e não pode ser modificada.
     public ResponseEntity<String> atualizaProduto2(String ean, Produto objProduto) {
-        System.out.println("Atualizando produto com EAN antigo: " + ean);
+        //System.out.println("Atualizando produto com EAN antigo: " + ean);
 
         // Verifica se o produto existe
         if (!produto_repositorio.existsById(ean)) {
