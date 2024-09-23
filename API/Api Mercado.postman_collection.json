@@ -1,0 +1,244 @@
+{
+	"info": {
+		"_postman_id": "ba61f645-fedf-461e-9e59-094c9fde3f6b",
+		"name": "Api Mercado",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "35245018"
+	},
+	"item": [
+		{
+			"name": "UsuarioCadastro",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"login\":\"moises\",\r\n    \"senha\":\"12345678\",\r\n    \"cargo\":\"gerente\",\r\n    \"acesso\":true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/usuario/cadastrar",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuario",
+						"cadastrar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UsuarioListar",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/usuario/listar",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuario",
+						"listar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UsuarioLogin",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/usuario/login/moises/12345678",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuario",
+						"login",
+						"moises",
+						"12345678"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UsuarioConta",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/usuario/conta/moises",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuario",
+						"conta",
+						"moises"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UsuarioAtrualizar",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"login\":\"moises vila\",\r\n    \"senha\":\"12345678\",\r\n    \"cargo\":\"cara TI\",\r\n    \"acesso\":true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/usuario/atualizar/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuario",
+						"atualizar",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UsuarioDeletar",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/usuario/deletar/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"usuario",
+						"deletar",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ProdutoCadastrar",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"ean\":\"0123456789123\",\r\n\"descricao\":\"produto teste\",\r\n\"tipoProduto\":\"tipo teste\",\r\n\"unidade\":\"UND T\",\r\n\"gramagem\":\"KG T\",\r\n\"categoria\":\"categoria Teste\",\r\n\"marca\":\"marca teste\",\r\n\"custo\": 10.0,\r\n\"lucro\": 0.5,\r\n\"preco\": 15,\r\n\"estoque\": 100\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/produto/cadastrar",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"produto",
+						"cadastrar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ProdutoListarEAN",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/produto/listaProdutoPorEAN/0123456789123",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"produto",
+						"listaProdutoPorEAN",
+						"0123456789123"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ProdutoAtualizar",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"ean\":\"0123456789123\",\r\n\"descricao\":\"produto atualizado\",\r\n\"tipoProduto\":\"tipo atualizado\",\r\n\"unidade\":\"UND T\",\r\n\"gramagem\":\"KG T\",\r\n\"categoria\":\"categoria Teste\",\r\n\"marca\":\"marca teste\",\r\n\"custo\": 5.0,\r\n\"lucro\": 0.1,\r\n\"preco\": 5.05,\r\n\"estoque\": 50\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/produto/atualizar/0123456789123",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"produto",
+						"atualizar",
+						"0123456789123"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "ProdutoDeletar",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/produto/deletar/0123456789123",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"produto",
+						"deletar",
+						"0123456789123"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
