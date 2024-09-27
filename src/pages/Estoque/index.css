@@ -1,0 +1,215 @@
+body {
+  background-color: #eaeaea; /* Cor de fundo escura */
+  color: #000000; /* Texto branco ou claro */
+  font-family: Arial, sans-serif; /* Fonte da página */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Faz com que ocupe a altura total da viewport */
+}
+  .container {
+    display: flex;
+    
+  }
+  
+  table{
+    width: 100%;
+    white-space: nowrap;
+    
+  }
+  td {
+    font-size: 12px;
+  }
+  
+  .o-quant {
+    position:relative;
+    left: 30px;
+  }
+  .quant {
+    border: none;
+  }
+  
+  .descr {
+    position:relative;
+    left: 35px;
+    top: 6px;
+  }
+  .unit {
+    position:relative;
+    left: -30px;
+    top: 6px;
+  }
+  .total {
+    position:relative;
+    left: 40px;
+    top: 6px;
+    width: 90px; /* Define a largura máxima do elemento */
+    overflow: hidden; /* Oculta o conteúdo que excede a largura */
+    text-overflow: ellipsis; /* Adiciona "..." ao conteúdo truncado */
+    white-space: nowrap; /* Impede que o texto quebre a linha */
+  }
+  .carrinho-table {
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+  }
+  
+  .scroll-container {
+    font-size: small;
+    overflow-y: auto;
+    flex-grow: 1;
+    list-style: none; 
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+  }
+  
+  .scroll-container li {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    /* Adiciona um espaçamento inferior para juntar as linhas */
+  }
+  
+  .scroll-container li span {
+    white-space: nowrap;
+    margin-right: 10px;
+    text-align: start;
+  }
+  
+  .scroll-container span {
+    white-space: nowrap; 
+  }
+  
+  .scroll-container li span.descr {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 200px; /* Define a largura máxima do texto */
+  }
+  
+  
+  .scroll-container span {
+    white-space: nowrap; 
+  }
+  
+  
+  
+  .forma-pagamento {
+    display: flex;
+    align-items: center;
+  }
+  
+  .forma-pagamento label, p {
+    white-space: nowrap;
+  }
+  
+    /*carrinho*/
+    .o-pagamento   {
+      align-items: center;
+    }
+  
+  .o-pagamento {
+    width: 300px;
+    padding: 20px;
+    border: 1px solid #ccc;
+  }
+  .carrinho{
+    width: 1200px;
+    height: 80vh;
+    padding: 20px;
+    border: 1px solid #ccc;
+  }
+  .quant{
+    width: 4%;
+  }
+  .aumentar {
+    font-size: x-small;
+    align-items: center;
+    height: 5px;
+    position:relative;
+    top: 10px;
+  }
+  .diminuir {
+    font-size: x-small;
+    align-items: center;
+    height: 5px;
+    position:relative;
+    top: 10px;
+  }
+  
+  hr {
+    border: 1px solid #cccccc;
+    margin: 0; /* Remove a margem superior e inferior do hr */
+    width: 99%;
+  }
+  .carrinho .o-total,
+  .carrinho button {
+    display: flex;
+    align-items: center; 
+    justify-content:end; 
+  }
+  .pagamento-button{
+    margin-top: 10px;
+  }
+  .container{
+    position:relative;
+    top: -40px;
+  }
+  .o-pagamento input[type="number"] {
+    -moz-appearance: textfield; 
+    -webkit-appearance: textfield; 
+    appearance: textfield; 
+  }
+  .grid {
+    display: flex;
+    flex-wrap: wrap; /* Permite que as divs quebrem para a próxima linha */
+    justify-content: space-between; /* Espalha as divs uniformemente */
+   /*  gap: 1px;%; Define um espaçamento de 50% entre os itens */
+
+  }
+  
+  .input-group {
+    display: flex;
+    flex-direction: column; /* Para empilhar os elementos verticalmente */
+    /*width: %;*//* Ajuste a largura conforme necessário */
+     /* margin-bottom: 20px;Espaço entre as linhas */
+    /*height: 50px;*/
+    width:calc(100% / 4);
+    box-sizing: border-box;
+    margin-bottom: 10px; /* Espaço entre as linhas */
+    
+  }
+
+  .button-container {
+    
+    margin: 0px 7% auto;
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap-reverse; 
+    justify-content: space-between;
+  }
+  .button-container button:hover {
+    background-color: #12e149; /* Cor do botão ao passar o mouse */
+  }
+  input[type="text"], input[type="number"] {
+    width: 95%; /* O input vai ocupar toda a largura disponível no container */
+    padding: 10px; /* Aumenta o preenchimento interno para dar mais espaço */
+    font-size: 16px; /* Ajusta o tamanho da fonte */
+    border-radius: 8px; /* Define as bordas arredondadas */
+    border: 1px solid #ccc; /* Define a borda com uma cor suave */
+    box-sizing: border-box; /* Garante que padding e border não aumentem o tamanho total do elemento */
+    border: 1px solid #ccc; /* Borda cinza clara */
+  background-color: #fff; /* Fundo branco para o input */
+  color: #2c3e50; /* Texto escuro dentro dos inputs */
+  box-sizing: border-box; /* Garante que padding e border não afetem o tamanho total */
+  margin-bottom: 10px; /* Espaçamento entre inputs */
+  }
+
+
+input:focus {
+  outline: none; /* Remove a borda de foco padrão */
+  border-color: #007BFF; /* Altera a cor da borda ao focar no campo */
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Adiciona um efeito de sombra ao focar */
+}
