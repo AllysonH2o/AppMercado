@@ -342,6 +342,56 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "NCM Lista C/Ponto",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/ncm/descricao?codigo=61.01",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ncm",
+						"descricao"
+					],
+					"query": [
+						{
+							"key": "codigo",
+							"value": "61.01"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NCM Lista S/Ponto",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/ncm/descricao-sem-pontos?codigo=6101",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ncm",
+						"descricao-sem-pontos"
+					],
+					"query": [
+						{
+							"key": "codigo",
+							"value": "6101"
+						}
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
