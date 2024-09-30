@@ -1,9 +1,6 @@
 /* src/index.css */
 
-body {
-  background-color: #f9f9f9;
-  font-family: Arial, sans-serif;
-}
+
 
 /* Container principal */
 .produto-form-container {
@@ -78,7 +75,7 @@ body {
   color: black;
 }
 
-input, select {
+.barcode-input,.full-width-input {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;

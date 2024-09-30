@@ -75,6 +75,7 @@ const ProdutoForm = () => {
             name="tipoItem"
             value={produto.tipoItem}
             onChange={handleChange}
+            className="full-width-input"
           />
         </div>
 
@@ -84,6 +85,7 @@ const ProdutoForm = () => {
             name="unidade"
             value={produto.unidade}
             onChange={handleChange}
+            className="full-width-input"
           >
             <option value="Peça (PC)">Peça (PC)</option>
             <option value="Unidade (UND)">Unidade (UND)</option>
@@ -103,6 +105,7 @@ const ProdutoForm = () => {
             name="categoria"
             value={produto.categoria}
             onChange={handleChange}
+            className="full-width-input"
           >
             <option value="">Selecione</option>
           </select>
@@ -115,6 +118,7 @@ const ProdutoForm = () => {
             name="gramagem"
             value={produto.gramagem}
             onChange={handleChange}
+            className="full-width-input"
           />
         </div>
 
@@ -124,6 +128,7 @@ const ProdutoForm = () => {
             name="marca"
             value={produto.marca}
             onChange={handleChange}
+            className="full-width-input"
           >
             <option value="">Selecione</option>
           </select>
@@ -136,6 +141,7 @@ const ProdutoForm = () => {
             name="ncm"
             value={produto.modelo}
             onChange={handleChange}
+            className="full-width-input"
           />
         </div>
 
@@ -148,6 +154,7 @@ const ProdutoForm = () => {
               value={produto.custo}
               onChange={handleChange}
               step="0.01"
+              className="full-width-input"
             />
           </div>
 
@@ -159,6 +166,7 @@ const ProdutoForm = () => {
               value={produto.lucro}
               onChange={handleChange}
               step="0.01"
+              className="full-width-input"
             />
           </div>
 
@@ -169,6 +177,7 @@ const ProdutoForm = () => {
               name="precoVenda"
               value={`R$ ${calcularPrecoVenda()}`}
               readOnly
+              className="full-width-input"
             />
           </div>
         </div>

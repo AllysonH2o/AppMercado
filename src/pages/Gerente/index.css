@@ -1,0 +1,65 @@
+/* Layout principal */
+.App {
+    display: flex;
+    height: 80vh;
+    width: 200vh; 
+  }
+  /* Barra lateral para os botões */
+  .sidebar {
+    width: 200px;
+    background-color: #f4f4f4;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    position: fixed; /* Fixa a barra lateral no canto esquerdo da tela */
+    top: 0;
+    left: 0;
+    height: 100%;
+    box-shadow: 2px 0px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  .sidebar button {
+    margin-bottom: 10px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    text-align: left; /* Alinha o texto à esquerda */
+    width: 100%;
+  }
+  
+  .sidebar button:hover {
+    background-color: #45a049;
+  }
+  
+  /* Conteúdo principal */
+  .main-content {
+    margin-left: 200px; /* Espaço para a barra lateral */
+    padding: 20px;
+    width: calc(100% - 200px); /* Calcula a largura com base no espaço restante */
+    flex-grow: 1; /* Faz a div crescer para ocupar o espaço restante */
+    overflow-y: auto; /* Permite rolagem vertical caso o conteúdo exceda a altura da tela */
+  }
+  .nome {
+    color: black;
+  }
+  table {
+    margin: 0 auto;
+    border-collapse: collapse;
+    width: 80%;
+  }
+  
+  table, th, td {
+    border: 1px solid black;
+  }
+  
+  th, td {
+    padding: 8px;
+    text-align: center;
+  }
+  
+  thead {
+    background-color: #f2f2f2;
+  }
+  

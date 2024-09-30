@@ -1,9 +1,9 @@
 /* Pagina */
 body {
-    background-color: #2f2f2f; 
-    color: #f5f5f5; 
-  }
- 
+  background-color: #2f2f2f;
+  color: #f5f5f5;
+}
+
   /* carrinho/pagamento */
   .container {
     display: flex;
