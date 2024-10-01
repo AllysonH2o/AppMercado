@@ -122,3 +122,120 @@
 .submit-button:hover {
   background-color: #218838;
 }
+
+.error {
+  color: red;
+}
+
+/* Estilo padrão para desktop */
+.produto-form-container {
+  display: flex;
+  padding: 20px;
+  justify-content: space-between;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+/* Seção esquerda (Código de barras e imagem) */
+.left-section {
+  width: 30%;
+}
+
+/* Formulário */
+.produto-form {
+  width: 65%;
+}
+
+/* Estilo para telas menores que 768px (smartphones) */
+@media (max-width: 768px) {
+  .produto-form-container {
+    flex-direction: column;
+  }
+  .left-section {
+    width: 100%;
+  }
+  .produto-form {
+    width: 100%;
+  }
+  .input-group {
+    width: 100%;
+  }
+  .half-width {
+    width: 100%;
+  }
+  .pricing {
+    width: 100%;
+  }
+}
+
+/* Estilo para telas menores que 480px (smartphones pequenos) */
+@media (max-width: 480px) {
+  .produto-form-container {
+    padding: 10px;
+  }
+  .input-group {
+    margin-bottom: 10px;
+  }
+  .submit-button {
+    padding: 10px;
+  }
+}
+
+/* Estilo para telas maiores que 1024px (desktops) */
+@media (min-width: 1024px) {
+  .produto-form-container {
+    padding: 30px;
+  }
+  .input-group {
+    margin-bottom: 20px;
+  }
+  .submit-button {
+    padding: 20px;
+  }
+}
+
+/* Adicionar espaçamento entre os elementos */
+.input-group, .pricing {
+  margin-bottom: 15px;
+}
+
+/* Adicionar espaçamento entre os botões */
+.submit-button {
+  margin-top: 20px;
+}
+
+/* Adicionar espaçamento entre os elementos na seção de precificação */
+.pricing-section {
+  margin-top: 20px;
+  padding-top: 20px;
+}
+
+.input-group.half-width {
+  margin-bottom: 15px;
+}
+
+.input-group.half-width input, .input-group.half-width select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.input-group.half-width label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: black;
+}
+
+.input-group.full-width input {
+  margin-bottom: 15px;
+}
+
+.input-group.full-width label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: black;
+}
