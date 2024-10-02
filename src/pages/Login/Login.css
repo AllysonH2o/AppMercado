@@ -1,0 +1,59 @@
+/* lado direito */
+.login-container {
+    display: flex;
+    border-radius: 5px;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-color: #009696;
+  }
+/* lado esquerdo */
+  .login-form {
+    padding: 30px;
+    border-radius: 5px;
+    background-color: #000000;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    width: 300px;
+  }
+  
+  .login-form h2 {
+    margin-bottom: 20px;
+  }
+  
+  .login-form label {
+    display: block;
+    margin-bottom: 5px;
+  }
+  
+  .login-form input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+  }
+  
+  .login-form button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: #fff;
+  }
+  
+  .login-form button:hover {
+    background-color: #0056b3;
+  }
+  /* logo do site */
+  .logo-image {
+    margin-left: 30px; 
+    width: 300px; 
+  }
+  
+  .logo-image img {
+    width: 100%;
+    height: auto;
+  }
+  
