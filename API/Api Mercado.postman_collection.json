@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "ba61f645-fedf-461e-9e59-094c9fde3f6b",
+		"_postman_id": "ce4b7a9f-4357-45b3-840a-87305f35df8b",
 		"name": "Api Mercado",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "35245018"
@@ -95,7 +95,7 @@
 			"response": []
 		},
 		{
-			"name": "UsuarioAtrualizar",
+			"name": "UsuarioAtualizar",
 			"request": {
 				"method": "PUT",
 				"header": [],
@@ -172,6 +172,25 @@
 			"response": []
 		},
 		{
+			"name": "ProdutoListar",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/produto/listar",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"produto",
+						"listar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "ProdutoListarEAN",
 			"request": {
 				"method": "GET",
@@ -235,6 +254,140 @@
 						"produto",
 						"deletar",
 						"0123456789123"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EstoqueAdicionar",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ean\":\"0123456789123\",\r\n    \"estoque\": 1\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/produto/adicionarEstoque",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"produto",
+						"adicionarEstoque"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EstoqueRemover",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"ean\":\"0123456789123\",\r\n    \"estoque\": 1\r\n\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/produto/removerEstoque",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"produto",
+						"removerEstoque"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "EstoqueAtualizarCarrinho",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"ean\": \"0123456789123\",\r\n        \"estoque\": 1\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/produto/atualizarEstoque",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"produto",
+						"atualizarEstoque"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NCM Lista C/Ponto",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/ncm/descricao?codigo=61.01",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ncm",
+						"descricao"
+					],
+					"query": [
+						{
+							"key": "codigo",
+							"value": "61.01"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "NCM Lista S/Ponto",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/ncm/descricao-sem-pontos?codigo=6101",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"ncm",
+						"descricao-sem-pontos"
+					],
+					"query": [
+						{
+							"key": "codigo",
+							"value": "6101"
+						}
 					]
 				}
 			},

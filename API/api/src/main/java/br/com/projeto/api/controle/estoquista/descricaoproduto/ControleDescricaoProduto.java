@@ -1,11 +1,11 @@
 package br.com.projeto.api.controle.estoquista.descricaoproduto;
 
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
+//import org.springframework.http.ResponseEntity;
+//import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import br.com.projeto.api.modelo.DescricaoProduto;
+//import br.com.projeto.api.modelo.DescricaoProduto;
 import lombok.AllArgsConstructor;
 
 // Classe responsável por gerenciar todas as requisições relacionadas a Descrição do Produto.
