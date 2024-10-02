@@ -196,7 +196,6 @@ const ProdutoForm = () => {
             name="tipoItem"
             value={produto.tipoItem}
             onChange={handleChange}
-            className="full-width-input"
           />
         </div>
 
@@ -206,7 +205,6 @@ const ProdutoForm = () => {
             name="unidade"
             value={produto.unidade}
             onChange={handleChange}
-            className="full-width-input"
           >
             <option value="Peça (PC)">Peça (PC)</option>
             <option value="Unidade (UND)">Unidade (UND)</option>
@@ -227,11 +225,9 @@ const ProdutoForm = () => {
             name="categoria"
             value={produto.categoria}
             onChange={handleChange}
-            className="full-width-input"
-          >
-            <option value="">Selecione</option>
-          </input>
-
+          />
+            
+          
         </div>
 
         <div className="input-group half-width">
@@ -241,7 +237,6 @@ const ProdutoForm = () => {
             name="gramagem"
             value={produto.gramagem}
             onChange={handleChange}
-            className="full-width-input"
           />
         </div>
 
@@ -252,11 +247,9 @@ const ProdutoForm = () => {
             name="marca"
             value={produto.marca}
             onChange={handleChange}
-
-            className="full-width-input"
-          >
-            <option value="">Selecione</option>
-          </input>
+          />
+           
+          
         </div>
 
         <div className="input-group half-width">
@@ -266,7 +259,7 @@ const ProdutoForm = () => {
             name="ncm"
             value={produto.ncm}
             onChange={handleChange}
-            className="full-width-input"
+            className="barcode-input"
             pattern="\d{3,8}" // Aceitar apenas números e garantir que tenha de 3 a 8 dígitos
             title="O NCM deve conter de 3 a 8 dígitos numéricos."
             required
@@ -291,7 +284,6 @@ const ProdutoForm = () => {
               value={produto.custo}
               onChange={handleChange}
               step="0.01"
-              className="full-width-input"
             />
           </div>
 
@@ -303,7 +295,6 @@ const ProdutoForm = () => {
               value={produto.lucro}
               onChange={handleChange}
               step="0.01"
-              className="full-width-input"
               min="0.01" // Valor mínimo permitido
               max="99.99" // Valor máximo permitido
             />
@@ -317,7 +308,6 @@ const ProdutoForm = () => {
               name="precoVenda"
               value={`R$ ${calcularPrecoVenda()}`}
               readOnly
-              className="full-width-input"
             />
           </div>
         </div>
