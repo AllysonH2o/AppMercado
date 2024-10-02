@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './index.css';
+import './Caixa.css';
 
 function App() {
   // Declaração dos estados do componente
