@@ -1,6 +1,6 @@
 // src/index.jsx
 import React, { useState } from 'react';
-import './index.css';
+import './produto.css';
 
 const ProdutoForm = () => {
   const [produto, setProduto] = useState({
@@ -96,9 +96,9 @@ const ProdutoForm = () => {
 
   return (
     <div className="produto-form-container">
-      <div className="left-section">
+      <div className="left-section" >
         <div className="barcode-section">
-          <label htmlFor="codigoBarras">Inserir código de barra</label>
+          <label>Inserir código de barra</label>
           <input
             type="text"
             name="codigoBarras"
