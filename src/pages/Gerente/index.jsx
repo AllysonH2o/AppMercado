@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './Gerete.css';
+import './Gerente.css';
 
 function App() {
   const [activeSection, setActiveSection] = useState('estoque'); // Estado para alternar entre as seções
