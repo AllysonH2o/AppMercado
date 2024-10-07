@@ -78,7 +78,7 @@ body {
   color: black;
 }
 
-input, select {
+.input-select {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
@@ -242,4 +242,8 @@ input, select {
   margin-bottom: 5px;
   font-weight: bold;
   color: black;
+}
+
+.estoque-button {
+  background-color: blue;
 }

@@ -134,7 +134,7 @@ const ProdutoForm = () => {
             name="ean"
             value={produto.ean}
             onChange={handleChange}
-            className="barcode-input"
+            className="barcode-input input-select"
             pattern="\d{13}" // Aceitar apenas números e garantir que tenha 13 dígitos
             title="O código de barras deve conter exatamente 13 dígitos numéricos."
             required
@@ -163,6 +163,7 @@ const ProdutoForm = () => {
               <input
                 type="number"
                 name="custo"
+                className="input-select"
                 value={custoSugerido.custo}
                 onChange={handleCustoSugeridoChange}
                 step="0.01"
@@ -174,6 +175,7 @@ const ProdutoForm = () => {
               <input
                 type="number"
                 name="precoSugerido"
+                className="input-select"
                 value={custoSugerido.precoSugerido}
                 onChange={handleCustoSugeridoChange}
                 step="0.01"
@@ -194,11 +196,18 @@ const ProdutoForm = () => {
               <input
                 type="text"
                 name="percentualLucro"
+                className="input-select"
                 value={`${percentualLucro}%`}
                 readOnly
               />
             </div>
           </div>
+        </div>
+
+        {/* Nova divisão com o botão para adicoonar estoque */}
+        <div>
+          <br />
+          <button className='estoque-button'>Adicionar Estoque</button>
         </div>
 
       </div>
@@ -211,8 +220,8 @@ const ProdutoForm = () => {
             name="descricao"
             value={produto.descricao}
             onChange={handleChange}
-            className="full-width-input"
-            pattern=".{3,20}" // Aceitar apenas de 3 a 20 caracteres
+            className="full-width-input input-select"
+            pattern=".{3,20}" // Aceitar apenas de 3 a 20 caracteres 
             title="A descrição deve conter de 3 a 20 caracteres."
             required
           />
@@ -224,6 +233,7 @@ const ProdutoForm = () => {
           <input
             type="text"
             name="tipoProduto"
+            className="input-select"
             value={produto.tipoProduto}
             onChange={handleChange}
           />
@@ -233,6 +243,7 @@ const ProdutoForm = () => {
           <label>UNIDADE</label>
           <select
             name="unidade"
+            className='input-select'
             value={produto.unidade}
             onChange={handleChange}
           >
@@ -251,8 +262,9 @@ const ProdutoForm = () => {
         <div className="input-group half-width">
           <label>CATEGORIA</label>
           <input
-          type="text"
+            type="text"
             name="categoria"
+            className="input-select"
             value={produto.categoria}
             onChange={handleChange}
           />
@@ -265,6 +277,7 @@ const ProdutoForm = () => {
           <input
             type="number"
             name="gramagem"
+            className="input-select"
             value={produto.gramagem}
             onChange={handleChange}
           />
@@ -275,6 +288,7 @@ const ProdutoForm = () => {
           <input
             type="text"
             name="marca"
+            className="input-select"
             value={produto.marca}
             onChange={handleChange}
           />
@@ -289,7 +303,7 @@ const ProdutoForm = () => {
             name="ncm"
             //value={produto.ncm}
             //onChange={handleChange}
-            className="barcode-input"
+            className="barcode-input input-select"
             pattern="\d{3,8}" // Aceitar apenas números e garantir que tenha de 3 a 8 dígitos
             title="O NCM deve conter de 3 a 8 dígitos numéricos."
             required
@@ -311,6 +325,7 @@ const ProdutoForm = () => {
             <input
               type="number"
               name="custo"
+              className="input-select"
               value={produto.custo}
               onChange={handleChange}
               step="0.01"
@@ -322,6 +337,7 @@ const ProdutoForm = () => {
             <input
               type="number"
               name="lucro"
+              className="input-select"
               value={produto.lucro}
               onChange={handleChange}
               step="0.01"
@@ -336,6 +352,7 @@ const ProdutoForm = () => {
             <input
               type="text"
               name="precoVenda"
+              className="input-select"
               value={formatoPrecoVenda()}
               readOnly
             />
