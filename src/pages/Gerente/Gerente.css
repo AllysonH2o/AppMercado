@@ -21,15 +21,18 @@
   .sidebar button {
     margin-bottom: 10px;
     padding: 10px 20px;
-    background-color: #4CAF50;
     color: white;
     border: none;
     cursor: pointer;
     text-align: left; /* Alinha o texto à esquerda */
     width: 100%;
   }
+
+  .button-sidebar{
+    background-color: #4CAF50;
+  }
   
-  .sidebar button:hover {
+  .button-sidebar:hover {
     background-color: #45a049;
   }
   

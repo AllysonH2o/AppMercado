@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import apiCaixa from '../../services/apiCaixa';
+import components from '../../components/components';
 import './Caixa.css';
 
 function App() {
@@ -277,12 +278,15 @@ function App() {
                 </React.Fragment>
               ))}
             </ul>
+            {/* <button onClick={components.logout} className='logout' style={{}}>logout</button> */}
             <span className="valort">Valor Total: R$ <span id="valorTotal">{isValorTotalPago ? "0.00" : valorTotal.toFixed(2)}</span></span>
             <span className="valort">Troco: R$ <span id="troco">{troco}</span></span>
           </div>
         </div>
       </div>
-      <div className="o-pagamento">
+      <div className="o-pagamento"><div>
+        <button onClick={components.logout} className='logout' style={{}}>logout</button>
+      </div>
         <p>Selecione a forma de pagamento</p>
 
         {["Cartão", "Dinheiro", "Pix"].map((forma) => (

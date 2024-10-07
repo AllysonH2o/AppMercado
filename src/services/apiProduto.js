@@ -5,4 +5,9 @@ async function cadProduto (produto){
     console.log('Resposta:', response.data);
 }
 
-export default { cadProduto }
+async function addProduto(dadosApi) {
+    const response = await blogfetch.put('/produto/adicionarEstoque', dadosApi)
+    console.log(response.data)
+}
+
+export default { cadProduto, addProduto }

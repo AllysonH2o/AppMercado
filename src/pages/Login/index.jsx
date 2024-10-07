@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './Login.css'
 import { Link } from "react-router-dom"
 import Logar from '../../services/apiLogin';
+import logo from '../../assets/logo.png'
 
 function Login() {
   const [login, setLogin] = useState('');
@@ -45,12 +46,8 @@ function Login() {
       </div>
       <div className="logo-image">
         {/* Adicione a imagem da logo aqui */}
-        <img src="logo.jpg" alt="logo" />
+        <img src={logo} alt="logo" />
       </div>
-      <div>
-            <Link to="/estoque">Estoque</Link><br/>
-            <Link to="/caixa">Caixa</Link>
-        </div>
     </div>
   );
 }

@@ -1,5 +1,6 @@
 // src/index.jsx
 import React, { useState, useEffect  } from 'react';
+import components from '../../components/components';
 import apiProduto from '../../services/apiProduto';
 import './produto.css';
 
@@ -19,13 +20,16 @@ const ProdutoForm = () => {
     //vendaAtacado: 0.00,
     lucro: 0.00,
     preco: 0,
-    estoque: 100
+    estoque: 0
   });
 
   const [custoSugerido, setCustoSugerido] = useState({ custo: 0, precoSugerido: 0 });
   const [percentualLucro, setPercentualLucro] = useState(0);
   const [errors, setErrors] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
+  const [modalAdicionar, setModalAdicionar] = useState(false);
+  const [ean, setEan] = useState('');
+  const [quantidade, setQuantidade] = useState(1);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -42,6 +46,28 @@ const ProdutoForm = () => {
         [name]: valorConvertido,
     }));
 };
+
+  const adicionar = () => {
+    setModalAdicionar(true);
+  }
+
+  const sairModal = () => {
+    setModalAdicionar(false);
+  }
+
+  const adicionarQt = () => {
+    const dadosApi = {
+      ean: ean,
+      estoque: quantidade
+    }
+    try {
+      apiProduto.addProduto(dadosApi);
+    } catch (error) {
+      console.log(error)
+    } finally {
+      sairModal();
+    }
+  }
 
   const validarFormulario = () => {
     let formErrors = {};
@@ -81,12 +107,35 @@ const ProdutoForm = () => {
     }
   };
 
+  //função para limpar os campos
+  const limparCampos = () => {
+    setProduto({
+      ean: '',
+      descricao: '',
+      tipoProduto: '',
+      unidade: 'Peça (PC)',
+      gramagem: 0,
+      categoria: '',
+      //subcategoria: '',
+      marca: '',
+      //modelo: '',
+      custo: 0.00,
+      //vendaVarejo: 0.00,
+      //vendaAtacado: 0.00,
+      lucro: 0.00,
+      preco: 0,
+      estoque: 0
+    });
+  }
+
   //Função usada para garantir que você obtenha o valor atualizado após a chamada de setProduto
   useEffect(() => {
     if (isSubmitted) {
       console.log(produto); // Isso vai logar o valor atualizado de produto
       apiProduto.cadProduto(produto);
       setIsSubmitted(false); // Resetar o estado de enviado
+      limparCampos();
+      alert('Produto cadastrado');
     }
   }, [produto, isSubmitted]);
 
@@ -205,9 +254,10 @@ const ProdutoForm = () => {
         </div>
 
         {/* Nova divisão com o botão para adicoonar estoque */}
-        <div>
+        <div style={{display:'flex', gap:'50px'}}>
           <br />
-          <button className='estoque-button'>Adicionar Estoque</button>
+          <button onClick={components.logout} className='logout'>logout</button>
+          <button onClick={adicionar} className='estoque-button'>Adicionar Estoque</button>          
         </div>
 
       </div>
@@ -361,6 +411,34 @@ const ProdutoForm = () => {
 
         <button type="submit" className="submit-button">Cadastrar Produto</button>
       </form>
+
+      {modalAdicionar && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <h2 className='c-c'>Adicione Produtos</h2>
+            <div style={{display:'flex', gap:'30px'}}>
+              <input
+                type="number" 
+                className="input-select" 
+                placeholder='Codigo do produto'
+                value={ean}
+                onChange={(e) => setEan(e.target.value)}
+              />
+              <input 
+                type="number" 
+                className="input-select" 
+                placeholder='Quantidade'
+                value={quantidade}
+                onChange={(e) => setQuantidade(e.target.value)}
+              />
+            </div>
+            <div className="modal-buttons">
+              <button onClick={sairModal} className="modal-cancelar">Cancelar</button>
+              <button onClick={adicionarQt} className="modal-confirmar">Confirmar</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

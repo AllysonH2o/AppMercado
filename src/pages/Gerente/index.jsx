@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import apiGerente from '../../services/apiGerente';
+import components from '../../components/components';
 import './Gerente.css';
 
 function App() {
@@ -21,9 +22,10 @@ function App() {
   return (
     <div className="App">
       <div className="sidebar">
-        <button onClick={() => setActiveSection('estoque')} className="nome">Gerenciar Estoque</button>
-        <button onClick={() => setActiveSection('funcionarios')} className="nome">Cadastrar Funcionários</button>
-        <button onClick={() => setActiveSection('vendas')} className="nome">Verificação de Vendas</button>
+        <button onClick={() => setActiveSection('estoque')} className="nome button-sidebar">Gerenciar Estoque</button>
+        <button onClick={() => setActiveSection('funcionarios')} className="nome button-sidebar">Cadastrar Funcionários</button>
+        <button onClick={() => setActiveSection('vendas')} className="nome button-sidebar">Verificação de Vendas</button>
+        <button onClick={components.logout} className='logout'>Logout</button>
       </div>
       <div className="main-content">
         {renderSection()}
