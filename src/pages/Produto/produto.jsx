@@ -1,46 +1,61 @@
 // src/index.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect  } from 'react';
+import apiProduto from '../../services/apiProduto';
 import './produto.css';
 
 const ProdutoForm = () => {
   const [produto, setProduto] = useState({
+    ean: '',
     descricao: '',
-    tipoItem: '',
+    tipoProduto: '',
     unidade: 'Peça (PC)',
-    categoria: '',
-    subcategoria: '',
-    marca: '',
-    modelo: '',
-    custo: 0.00,
-    vendaVarejo: 0.00,
-    vendaAtacado: 0.00,
-    codigoBarras: '',
     gramagem: 0,
-    lucro: 0.00
+    categoria: '',
+    //subcategoria: '',
+    marca: '',
+    //modelo: '',
+    custo: 0.00,
+    //vendaVarejo: 0.00,
+    //vendaAtacado: 0.00,
+    lucro: 0.00,
+    preco: 0,
+    estoque: 100
   });
 
   const [custoSugerido, setCustoSugerido] = useState({ custo: 0, precoSugerido: 0 });
   const [percentualLucro, setPercentualLucro] = useState(0);
   const [errors, setErrors] = useState({});
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setProduto({ ...produto, [name]: value });
-  };
+
+    const valorConvertido =
+        name === 'custo' || name === 'lucro' || name === 'preco'
+            ? parseFloat(value) || 0
+            : value;
+
+    //console.log(`Campo: ${name}, Valor: ${valorConvertido}, Tipo: ${typeof valorConvertido}`); // Verifique o tipo aqui
+
+    setProduto((prevState) => ({
+        ...prevState,
+        [name]: valorConvertido,
+    }));
+};
 
   const validarFormulario = () => {
     let formErrors = {};
     // Validação do código de barras (apenas números e 13 dígitos)
-    if (!/^\d{13}$/.test(produto.codigoBarras)) {
-      formErrors.codigoBarras = 'O código de barras deve conter 13 dígitos numéricos.';
+    if (!/^\d{13}$/.test(produto.ean)) {
+      formErrors.ean = 'O código de barras deve conter 13 dígitos numéricos.';
     }
     // Validação da descrição (mínimo 3 e máximo 20 caracteres)
     if (!/^.{3,20}$/.test(produto.descricao)) {
       formErrors.descricao = 'A descrição deve conter de 3 a 20 caracteres.';
     }
-    // Validação do tipo de item (mínimo 3 e máximo 15 caracteres)
-    if (produto.tipoItem.length < 3 || produto.tipoItem.length > 15) {
-      formErrors.tipoItem = 'O tipo de item deve ter entre 3 e 15 caracteres.';
+    // Validação do tipo de item (mínimo 3 e máximo 15 caracteres) tipoItem
+    if (produto.tipoProduto.length < 3 || produto.tipoProduto.length > 15) {
+      formErrors.tipoProduto = 'O tipo de item deve ter entre 3 e 15 caracteres.';
     }
     // Validação da categoria (mínimo 3 e máximo 20 caracteres)
     if (produto.categoria.length < 3 || produto.categoria.length > 20) {
@@ -58,11 +73,22 @@ const ProdutoForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validarFormulario()) {
+      setProduto({ ...produto, preco: calcularPrecoVenda() })
       console.log(produto);
+      setIsSubmitted(true);
     } else {
       console.log('Erro na validação do formulário:', errors);
     }
   };
+
+  //Função usada para garantir que você obtenha o valor atualizado após a chamada de setProduto
+  useEffect(() => {
+    if (isSubmitted) {
+      console.log(produto); // Isso vai logar o valor atualizado de produto
+      apiProduto.cadProduto(produto);
+      setIsSubmitted(false); // Resetar o estado de enviado
+    }
+  }, [produto, isSubmitted]);
 
   // Função para calcular o preço de venda com base no custo e no lucro
   const calcularPrecoVenda = () => {
@@ -70,8 +96,12 @@ const ProdutoForm = () => {
     const lucro = parseFloat(produto.lucro) / 100; // Converter porcentagem para decimal
     if (lucro >= 1) return 0; // Garantir que o lucro seja menor que 100%
     const precoVenda = custo / (1 - lucro);
-    return precoVenda.toFixed(2); // Retorna o preço com duas casas decimais
+    return precoVenda; // Retorna o preço com duas casas decimais
   };
+
+  const formatoPrecoVenda = () => {
+    return `R$ ${calcularPrecoVenda().toFixed(2)}`; // Formato para exibição
+};
 
   //const handleSubmit = (e) => {
   // e.preventDefault();
@@ -101,8 +131,8 @@ const ProdutoForm = () => {
           <label>Inserir código de barra</label>
           <input
             type="text"
-            name="codigoBarras"
-            value={produto.codigoBarras}
+            name="ean"
+            value={produto.ean}
             onChange={handleChange}
             className="barcode-input"
             pattern="\d{13}" // Aceitar apenas números e garantir que tenha 13 dígitos
@@ -190,11 +220,11 @@ const ProdutoForm = () => {
         </div>
 
         <div className="input-group half-width">
-          <label>TIPO DE ITEM</label>
+          <label>TIPO DE PRODUTO</label>
           <input
             type="text"
-            name="tipoItem"
-            value={produto.tipoItem}
+            name="tipoProduto"
+            value={produto.tipoProduto}
             onChange={handleChange}
           />
         </div>
@@ -257,8 +287,8 @@ const ProdutoForm = () => {
           <input
             type="text"
             name="ncm"
-            value={produto.ncm}
-            onChange={handleChange}
+            //value={produto.ncm}
+            //onChange={handleChange}
             className="barcode-input"
             pattern="\d{3,8}" // Aceitar apenas números e garantir que tenha de 3 a 8 dígitos
             title="O NCM deve conter de 3 a 8 dígitos numéricos."
@@ -306,7 +336,7 @@ const ProdutoForm = () => {
             <input
               type="text"
               name="precoVenda"
-              value={`R$ ${calcularPrecoVenda()}`}
+              value={formatoPrecoVenda()}
               readOnly
             />
           </div>

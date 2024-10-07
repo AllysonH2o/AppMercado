@@ -32,7 +32,7 @@ public class Produto {
     private String tipoProduto;
 
     @NotBlank(message = "A unidade não pode estar em branco")
-    @Size(max = 5, message = "A unidade deve ter no máximo 5 caracteres")
+    //@Size(max = 5, message = "A unidade deve ter no máximo 5 caracteres")
     private String unidade;
 
     @NotBlank(message = "A gramagem não pode estar em branco")
@@ -54,7 +54,7 @@ public class Produto {
 
     @NotNull(message = "O lucro não pode estar em branco")
     @DecimalMin(value = "0.00", inclusive = true, message = "O custo deve ser maior ou igual a 0")
-    @DecimalMax(value = "9.99", inclusive = true, message = "O custo deve ser menor ou igual a 9.99")
+    //@DecimalMax(value = "9.99", inclusive = true, message = "O custo deve ser menor ou igual a 9.99")
     private BigDecimal lucro;
 
     @NotNull(message = "O preço não pode estar em branco")
