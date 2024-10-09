@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import './Login.css'
 import { Link } from "react-router-dom"
+import Logar from '../../services/apiLogin';
+import logo from '../../assets/logo.png'
 
 function Login() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [login, setLogin] = useState('');
+  const [senha, setSenha] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
     // Aqui adicionar a lógica para validar o login
-    console.log('Nome de usuário:', username);
-    console.log('Senha:', password);
+    //console.log('Nome de usuário:', login);
+    //console.log('Senha:', senha);
+    Logar(login, senha)
   };
 
   return (
@@ -23,8 +26,8 @@ function Login() {
             <input
               type="text"
               id="username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
+              value={login}
+              onChange={(e) => setLogin(e.target.value)}
               required
             />
           </div>
@@ -33,8 +36,8 @@ function Login() {
             <input
               type="password"
               id="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
               required
             />
           </div>
@@ -43,12 +46,8 @@ function Login() {
       </div>
       <div className="logo-image">
         {/* Adicione a imagem da logo aqui */}
-        <img src="logo.jpg" alt="logo" />
+        <img src={logo} alt="logo" />
       </div>
-      <div>
-            <Link to="/estoque">Estoque</Link><br/>
-            <Link to="/caixa">Caixa</Link>
-        </div>
     </div>
   );
 }

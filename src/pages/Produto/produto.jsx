@@ -1,46 +1,87 @@
 // src/index.jsx
-import React, { useState } from 'react';
+import React, { useState, useEffect  } from 'react';
+import components from '../../components/components';
+import apiProduto from '../../services/apiProduto';
 import './produto.css';
 
 const ProdutoForm = () => {
   const [produto, setProduto] = useState({
+    ean: '',
     descricao: '',
-    tipoItem: '',
+    tipoProduto: '',
     unidade: 'Peça (PC)',
-    categoria: '',
-    subcategoria: '',
-    marca: '',
-    modelo: '',
-    custo: 0.00,
-    vendaVarejo: 0.00,
-    vendaAtacado: 0.00,
-    codigoBarras: '',
     gramagem: 0,
-    lucro: 0.00
+    categoria: '',
+    //subcategoria: '',
+    marca: '',
+    //modelo: '',
+    custo: 0.00,
+    //vendaVarejo: 0.00,
+    //vendaAtacado: 0.00,
+    lucro: 0.00,
+    preco: 0,
+    estoque: 0
   });
 
   const [custoSugerido, setCustoSugerido] = useState({ custo: 0, precoSugerido: 0 });
   const [percentualLucro, setPercentualLucro] = useState(0);
   const [errors, setErrors] = useState({});
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [modalAdicionar, setModalAdicionar] = useState(false);
+  const [ean, setEan] = useState('');
+  const [quantidade, setQuantidade] = useState(1);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setProduto({ ...produto, [name]: value });
-  };
+
+    const valorConvertido =
+        name === 'custo' || name === 'lucro' || name === 'preco'
+            ? parseFloat(value) || 0
+            : value;
+
+    //console.log(`Campo: ${name}, Valor: ${valorConvertido}, Tipo: ${typeof valorConvertido}`); // Verifique o tipo aqui
+
+    setProduto((prevState) => ({
+        ...prevState,
+        [name]: valorConvertido,
+    }));
+};
+
+  const adicionar = () => {
+    setModalAdicionar(true);
+  }
+
+  const sairModal = () => {
+    setModalAdicionar(false);
+  }
+
+  const adicionarQt = () => {
+    const dadosApi = {
+      ean: ean,
+      estoque: quantidade
+    }
+    try {
+      apiProduto.addProduto(dadosApi);
+    } catch (error) {
+      console.log(error)
+    } finally {
+      sairModal();
+    }
+  }
 
   const validarFormulario = () => {
     let formErrors = {};
     // Validação do código de barras (apenas números e 13 dígitos)
-    if (!/^\d{13}$/.test(produto.codigoBarras)) {
-      formErrors.codigoBarras = 'O código de barras deve conter 13 dígitos numéricos.';
+    if (!/^\d{13}$/.test(produto.ean)) {
+      formErrors.ean = 'O código de barras deve conter 13 dígitos numéricos.';
     }
     // Validação da descrição (mínimo 3 e máximo 20 caracteres)
     if (!/^.{3,20}$/.test(produto.descricao)) {
       formErrors.descricao = 'A descrição deve conter de 3 a 20 caracteres.';
     }
-    // Validação do tipo de item (mínimo 3 e máximo 15 caracteres)
-    if (produto.tipoItem.length < 3 || produto.tipoItem.length > 15) {
-      formErrors.tipoItem = 'O tipo de item deve ter entre 3 e 15 caracteres.';
+    // Validação do tipo de item (mínimo 3 e máximo 15 caracteres) tipoItem
+    if (produto.tipoProduto.length < 3 || produto.tipoProduto.length > 15) {
+      formErrors.tipoProduto = 'O tipo de item deve ter entre 3 e 15 caracteres.';
     }
     // Validação da categoria (mínimo 3 e máximo 20 caracteres)
     if (produto.categoria.length < 3 || produto.categoria.length > 20) {
@@ -58,11 +99,45 @@ const ProdutoForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (validarFormulario()) {
+      setProduto({ ...produto, preco: calcularPrecoVenda() })
       console.log(produto);
+      setIsSubmitted(true);
     } else {
       console.log('Erro na validação do formulário:', errors);
     }
   };
+
+  //função para limpar os campos
+  const limparCampos = () => {
+    setProduto({
+      ean: '',
+      descricao: '',
+      tipoProduto: '',
+      unidade: 'Peça (PC)',
+      gramagem: 0,
+      categoria: '',
+      //subcategoria: '',
+      marca: '',
+      //modelo: '',
+      custo: 0.00,
+      //vendaVarejo: 0.00,
+      //vendaAtacado: 0.00,
+      lucro: 0.00,
+      preco: 0,
+      estoque: 0
+    });
+  }
+
+  //Função usada para garantir que você obtenha o valor atualizado após a chamada de setProduto
+  useEffect(() => {
+    if (isSubmitted) {
+      console.log(produto); // Isso vai logar o valor atualizado de produto
+      apiProduto.cadProduto(produto);
+      setIsSubmitted(false); // Resetar o estado de enviado
+      limparCampos();
+      alert('Produto cadastrado');
+    }
+  }, [produto, isSubmitted]);
 
   // Função para calcular o preço de venda com base no custo e no lucro
   const calcularPrecoVenda = () => {
@@ -70,8 +145,12 @@ const ProdutoForm = () => {
     const lucro = parseFloat(produto.lucro) / 100; // Converter porcentagem para decimal
     if (lucro >= 1) return 0; // Garantir que o lucro seja menor que 100%
     const precoVenda = custo / (1 - lucro);
-    return precoVenda.toFixed(2); // Retorna o preço com duas casas decimais
+    return precoVenda; // Retorna o preço com duas casas decimais
   };
+
+  const formatoPrecoVenda = () => {
+    return `R$ ${calcularPrecoVenda().toFixed(2)}`; // Formato para exibição
+};
 
   //const handleSubmit = (e) => {
   // e.preventDefault();
@@ -101,10 +180,10 @@ const ProdutoForm = () => {
           <label>Inserir código de barra</label>
           <input
             type="text"
-            name="codigoBarras"
-            value={produto.codigoBarras}
+            name="ean"
+            value={produto.ean}
             onChange={handleChange}
-            className="barcode-input"
+            className="barcode-input input-select"
             pattern="\d{13}" // Aceitar apenas números e garantir que tenha 13 dígitos
             title="O código de barras deve conter exatamente 13 dígitos numéricos."
             required
@@ -133,6 +212,7 @@ const ProdutoForm = () => {
               <input
                 type="number"
                 name="custo"
+                className="input-select"
                 value={custoSugerido.custo}
                 onChange={handleCustoSugeridoChange}
                 step="0.01"
@@ -144,6 +224,7 @@ const ProdutoForm = () => {
               <input
                 type="number"
                 name="precoSugerido"
+                className="input-select"
                 value={custoSugerido.precoSugerido}
                 onChange={handleCustoSugeridoChange}
                 step="0.01"
@@ -164,11 +245,19 @@ const ProdutoForm = () => {
               <input
                 type="text"
                 name="percentualLucro"
+                className="input-select"
                 value={`${percentualLucro}%`}
                 readOnly
               />
             </div>
           </div>
+        </div>
+
+        {/* Nova divisão com o botão para adicoonar estoque */}
+        <div style={{display:'flex', gap:'50px'}}>
+          <br />
+          <button onClick={components.logout} className='logout'>logout</button>
+          <button onClick={adicionar} className='estoque-button'>Adicionar Estoque</button>          
         </div>
 
       </div>
@@ -181,8 +270,8 @@ const ProdutoForm = () => {
             name="descricao"
             value={produto.descricao}
             onChange={handleChange}
-            className="full-width-input"
-            pattern=".{3,20}" // Aceitar apenas de 3 a 20 caracteres
+            className="full-width-input input-select"
+            pattern=".{3,20}" // Aceitar apenas de 3 a 20 caracteres 
             title="A descrição deve conter de 3 a 20 caracteres."
             required
           />
@@ -190,11 +279,12 @@ const ProdutoForm = () => {
         </div>
 
         <div className="input-group half-width">
-          <label>TIPO DE ITEM</label>
+          <label>TIPO DE PRODUTO</label>
           <input
             type="text"
-            name="tipoItem"
-            value={produto.tipoItem}
+            name="tipoProduto"
+            className="input-select"
+            value={produto.tipoProduto}
             onChange={handleChange}
           />
         </div>
@@ -203,6 +293,7 @@ const ProdutoForm = () => {
           <label>UNIDADE</label>
           <select
             name="unidade"
+            className='input-select'
             value={produto.unidade}
             onChange={handleChange}
           >
@@ -221,8 +312,9 @@ const ProdutoForm = () => {
         <div className="input-group half-width">
           <label>CATEGORIA</label>
           <input
-          type="text"
+            type="text"
             name="categoria"
+            className="input-select"
             value={produto.categoria}
             onChange={handleChange}
           />
@@ -235,6 +327,7 @@ const ProdutoForm = () => {
           <input
             type="number"
             name="gramagem"
+            className="input-select"
             value={produto.gramagem}
             onChange={handleChange}
           />
@@ -245,6 +338,7 @@ const ProdutoForm = () => {
           <input
             type="text"
             name="marca"
+            className="input-select"
             value={produto.marca}
             onChange={handleChange}
           />
@@ -257,9 +351,9 @@ const ProdutoForm = () => {
           <input
             type="text"
             name="ncm"
-            value={produto.ncm}
-            onChange={handleChange}
-            className="barcode-input"
+            //value={produto.ncm}
+            //onChange={handleChange}
+            className="barcode-input input-select"
             pattern="\d{3,8}" // Aceitar apenas números e garantir que tenha de 3 a 8 dígitos
             title="O NCM deve conter de 3 a 8 dígitos numéricos."
             required
@@ -281,6 +375,7 @@ const ProdutoForm = () => {
             <input
               type="number"
               name="custo"
+              className="input-select"
               value={produto.custo}
               onChange={handleChange}
               step="0.01"
@@ -292,6 +387,7 @@ const ProdutoForm = () => {
             <input
               type="number"
               name="lucro"
+              className="input-select"
               value={produto.lucro}
               onChange={handleChange}
               step="0.01"
@@ -306,7 +402,8 @@ const ProdutoForm = () => {
             <input
               type="text"
               name="precoVenda"
-              value={`R$ ${calcularPrecoVenda()}`}
+              className="input-select"
+              value={formatoPrecoVenda()}
               readOnly
             />
           </div>
@@ -314,6 +411,34 @@ const ProdutoForm = () => {
 
         <button type="submit" className="submit-button">Cadastrar Produto</button>
       </form>
+
+      {modalAdicionar && (
+        <div className="modal-overlay">
+          <div className="modal">
+            <h2 className='c-c'>Adicione Produtos</h2>
+            <div style={{display:'flex', gap:'30px'}}>
+              <input
+                type="number" 
+                className="input-select" 
+                placeholder='Codigo do produto'
+                value={ean}
+                onChange={(e) => setEan(e.target.value)}
+              />
+              <input 
+                type="number" 
+                className="input-select" 
+                placeholder='Quantidade'
+                value={quantidade}
+                onChange={(e) => setQuantidade(e.target.value)}
+              />
+            </div>
+            <div className="modal-buttons">
+              <button onClick={sairModal} className="modal-cancelar">Cancelar</button>
+              <button onClick={adicionarQt} className="modal-confirmar">Confirmar</button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

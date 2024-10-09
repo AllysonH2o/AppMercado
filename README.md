@@ -10,6 +10,7 @@ Comandos para desenvolvimento do app
 
     Comandos para instalar outras dependências se o npm i não instalar tudo (acho que se der npm i sempre que der uma att funciona):
         npm i react-router-dom
+        npm i axios
 
 informações para desenvolmimento
 

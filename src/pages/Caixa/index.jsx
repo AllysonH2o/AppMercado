@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import apiCaixa from '../../services/apiCaixa';
+import components from '../../components/components';
 import './Caixa.css';
 
 function App() {
@@ -82,15 +84,21 @@ function App() {
     }
   };
   // Função para adicionar um produto quando a tecla Enter é pressionada
-  const handleCodigoProdutoKeyDown = (event) => {
+  const handleCodigoProdutoKeyDown = async (event) => {
     if (event.key === 'Enter') {
-      adicionarProduto(codigoProduto, quantidadeProduto);
-      setCodigoProduto('');
-      setQuantidadeProduto(1);
+      try {
+        const apiProduto = await apiCaixa.ean(codigoProduto);
+        adicionarProduto(codigoProduto, quantidadeProduto, apiProduto);
+      } catch (error) {
+        //console,log(error)
+      } finally {
+        setCodigoProduto('');
+        setQuantidadeProduto(1);
+      }
     }
   };
   // Função para adicionar um produto ao carrinho
-  const adicionarProduto = (codigo, quantidade) => {
+  const adicionarProduto = async (codigo, quantidade, apiProduto) => {
     const produtoExistente = produtos.find(p => p.codigo === codigo);
     if (quantidade < 1) {
       alert("A quantidade deve ser pelo menos 1.");
@@ -101,11 +109,12 @@ function App() {
         p.codigo === codigo ? { ...p, quantidade: p.quantidade + quantidade } : p
       ));
     } else {
+      //console.log(produtos)//debug eh o caraio
       const novoProduto = {
         codigo: codigo,
-        descricao: `Produto ${codigo}`,
+        descricao: apiProduto.descricao,
         quantidade: quantidade,
-        valorUnitario: 10.00 // Valor fixo para o produto
+        valorUnitario: apiProduto.preco // Valor fixo para o produto
       };
       setProdutos([...produtos, novoProduto]); // Adiciona o novo produto ao carrinho
     }
@@ -172,10 +181,27 @@ function App() {
     } else {
       setShowModal(true); // Abre o modal de confirmação se o valor total for igual a zero
     }
-};
+  };
+
+  const confirmarCompra = () =>{
+    // Função para transformar e enviar os dados para a API
+    produtos.forEach(item => { //enviar um de cada vez como a API pede
+
+      const dadosApi = { //transformar para o formato da API
+        ean: item.codigo,
+        estoque: item.quantidade
+      };
+
+      try {
+        apiCaixa.removerEstoque(dadosApi);
+        limparTela();
+      } catch (error) {
+        console.log(error);
+      }
+    });
+  };
   
-  
-  const confirmarCompra = () => {
+  const limparTela = () => {
     setProdutos([]); // Limpa todos os itens da lista
     setTroco(0); // Zera o troco
     setValorPagoTotal(0); // Zera o valor total pago
@@ -252,12 +278,15 @@ function App() {
                 </React.Fragment>
               ))}
             </ul>
+            {/* <button onClick={components.logout} className='logout' style={{}}>logout</button> */}
             <span className="valort">Valor Total: R$ <span id="valorTotal">{isValorTotalPago ? "0.00" : valorTotal.toFixed(2)}</span></span>
             <span className="valort">Troco: R$ <span id="troco">{troco}</span></span>
           </div>
         </div>
       </div>
-      <div className="o-pagamento">
+      <div className="o-pagamento"><div>
+        <button onClick={components.logout} className='logout' style={{}}>logout</button>
+      </div>
         <p>Selecione a forma de pagamento</p>
 
         {["Cartão", "Dinheiro", "Pix"].map((forma) => (
